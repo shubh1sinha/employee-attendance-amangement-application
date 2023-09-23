@@ -7,37 +7,47 @@ pipeline{
             }
         }
         
-        stage("Package-Application"){
+        stage("Install-Common-Model"){
             steps{
-			dir('employee-attendance-management-application'){
-			sh "cd"
 			    dir('employee-common-model'){
 				sh "/home/azureuser/apache-maven-3.8.6/bin/mvn clean"
 				sh "/home/azureuser/apache-maven-3.8.6/bin/mvn clean install"
                 sh "pwd"
             }
-			dir('employee-attendance-management-application'){
-			sh "cd"
+		    dir('employee-attendance-amangement-application') {
+				    sh "cd"
+                    sh "pwd"
+                }
+        
+		   }
+		}
+		stage("Package-employee-tracking"){
+            steps{
 			    dir('employee-tracking-system'){
 				sh "/home/azureuser/apache-maven-3.8.6/bin/mvn clean package"
                 sh "pwd"
             }
-			dir('employee-attendance-management-application'){
-			sh "cd"
-			    dir('attendance-computing-system'){
+			
+			dir('employee-attendance-amangement-application') {
+				    sh "cd"
+                    sh "pwd"
+             }
+        
+		   
+		   	dir('attendance-computing-system'){
 				sh "/home/azureuser/apache-maven-3.8.6/bin/mvn clean package"
                 sh "pwd"
             }
-		   }
-		  }
-        }
+			
+			dir('employee-attendance-amangement-application') {
+				    sh "cd"
+                    sh "pwd"
+             }
 		}
-		}
+	}
 		
         stage("Dockerize Employee-Tracking-Application"){
             steps{
-			dir('employee-attendance-management-application'){
-				 sh "cd"
 			    dir('employee-tracking-system'){
 				    sh "cd"
                     sh "pwd"
@@ -49,7 +59,6 @@ pipeline{
                 }
             }
         }
-	}
 		
 		stage("Dockerize Attendance-Computing-Microservice"){
             steps{
