@@ -49,6 +49,7 @@ pipeline{
                 }
             }
         }
+	}
 		
 		stage("Dockerize Attendance-Computing-Microservice"){
             steps{
@@ -92,5 +93,4 @@ pipeline{
         }
 		
     }
- }
  }
