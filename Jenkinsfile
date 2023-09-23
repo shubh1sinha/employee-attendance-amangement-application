@@ -31,6 +31,8 @@ pipeline{
 		   }
 		  }
         }
+		}
+		}
 		
         stage("Dockerize Employee-Tracking-Application"){
             steps{
@@ -90,4 +92,5 @@ pipeline{
         }
 		
     }
+ }
  }
